@@ -1,0 +1,57 @@
+# Handlet-oriented additions for the Raspberry Pi 4B boot config.
+#
+# File location:
+#   Raspberry Pi OS Bookworm and newer: /boot/firmware/config.txt
+#   Older releases:                     /boot/config.txt
+#
+# Copy only the lines you need into the [all] section and reboot.
+# Keep a backup: sudo cp /boot/firmware/config.txt{,.bak}
+
+# --- Interfaces -------------------------------------------------------
+dtparam=i2c_arm=on
+dtparam=spi=on
+dtparam=audio=on
+
+# --- Power button -----------------------------------------------------
+# Press GPIO3 (pin 5) to GND to shut down; pressing it again while halted
+# boots the Pi. gpio-shutdown is the cleanest "power button" there is.
+dtoverlay=gpio-shutdown,gpio_pin=3,active_low=1,gpio_pull=up
+
+# Optional: drive a pin high while running, low after shutdown (useful to
+# tell a battery board to cut power once the Pi has halted).
+#dtoverlay=gpio-poweroff,gpiopin=26,active_low=0
+
+# --- Battery savings --------------------------------------------------
+# Disable radios you don't use.
+#dtoverlay=disable-bt
+#dtoverlay=disable-wifi
+
+# Turn off onboard LEDs (Pi 4).
+#dtparam=act_led_trigger=none
+#dtparam=act_led_activelow=off
+#dtparam=pwr_led_trigger=none
+#dtparam=pwr_led_activelow=off
+
+# Lower the max CPU clock (Pi 4 default 1500/1800 MHz).
+#arm_freq=1200
+
+# --- 5" display -------------------------------------------------------
+# Official/most DSI panels are auto-detected with the KMS driver below.
+dtoverlay=vc4-kms-v3d
+display_auto_detect=1
+
+# Rotate a DSI panel (0/90/180/270) - with KMS this is done via the
+# kernel command line instead, e.g. add to cmdline.txt:
+#   video=DSI-1:800x480@60,rotate=180
+
+# Typical 5" HDMI panel (800x480) when it does not report EDID correctly:
+#hdmi_force_hotplug=1
+#hdmi_group=2
+#hdmi_mode=87
+#hdmi_cvt=800 480 60 6 0 0 0
+
+# --- Fan control (PWM fan on GPIO14) ----------------------------------
+#dtoverlay=gpio-fan,gpiopin=14,temp=65000
+
+# --- Real-time clock on I2C (DS3231 / PCF8523) -----------------------
+#dtoverlay=i2c-rtc,ds3231

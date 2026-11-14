@@ -1,0 +1,10 @@
+{
+  "buttons": [
+    {"name": "power", "pin": 3,  "led": 27, "hold": "sudo shutdown -h now", "hold_time": 3},
+    {"name": "vol+",  "pin": 5,  "press": "amixer -q sset Master 5%+"},
+    {"name": "vol-",  "pin": 6,  "press": "amixer -q sset Master 5%-"},
+    {"name": "bright+", "pin": 16, "press": "~/Handlet/tools/display/backlight.sh up"},
+    {"name": "bright-", "pin": 20, "press": "~/Handlet/tools/display/backlight.sh down"},
+    {"name": "battery", "pin": 13, "led": 19, "press": "~/Handlet/tools/power/battery_monitor.py | wall"}
+  ]
+}

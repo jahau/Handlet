@@ -1,0 +1,13 @@
+[Unit]
+Description=Handlet battery level on LEDs
+After=multi-user.target
+
+[Service]
+Type=simple
+User=pi
+ExecStart=/usr/bin/python3 /home/pi/Handlet/tools/power/battery_leds.py --pins 19
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

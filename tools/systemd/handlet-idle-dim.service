@@ -1,0 +1,12 @@
+[Unit]
+Description=Handlet screen dim on idle
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /home/pi/Handlet/tools/display/idle_dim.py --dim-after 30 --off-after 120 --dim-level 15
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

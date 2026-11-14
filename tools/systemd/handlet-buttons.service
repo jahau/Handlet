@@ -1,0 +1,13 @@
+[Unit]
+Description=Handlet button handler
+After=multi-user.target
+
+[Service]
+Type=simple
+User=pi
+ExecStart=/usr/bin/python3 /home/pi/Handlet/tools/gpio/buttons.py /home/pi/Handlet/buttons.json
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

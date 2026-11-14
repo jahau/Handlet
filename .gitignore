@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.venv/
+*.img
+*.img.gz
+stress-*.csv
+buttons.json

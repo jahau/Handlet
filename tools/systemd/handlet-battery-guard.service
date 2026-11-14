@@ -1,0 +1,12 @@
+[Unit]
+Description=Handlet low-battery safe shutdown
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /home/pi/Handlet/tools/power/low_battery_guard.py --threshold 5 --warn 15
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
